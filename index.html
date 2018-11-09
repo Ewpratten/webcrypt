@@ -1,27 +1,78 @@
 <head>
 <title>webcrypt loading...</title>
+<style>
+	
+body {
+  background: #eaecfa;
+}
+
+.loader {
+  width: 250px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #ce4233;
+  letter-spacing: 0.2em;
+}
+
+.confirm-title{
+	width: 80%;
+	margin-right:auto;
+	margin-left:auto;
+  font-family: helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  text-align:center;
+  color: #ce4233;
+  letter-spacing: 0.2em;
+}
+
+.confirm-text{
+	width: 80%;
+	margin-right:auto;
+	margin-left:auto;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: 900;
+  text-align:center;
+  color: grey;
+  letter-spacing: 0.2em;
+}
+</style>
 </head>
 <body>
-<h1>loading your page</h1>
+<div class="loader">Loading...</div>
 
+<script src="kbpgp-2.0.8-min.js"></script>
 <script>
 // get the signed file
 const Http = new XMLHttpRequest();
 
-const url = window.location.href
+const url = window.location.href.replace(".html", ".pgp")
+var payload;
 
 Http.open("GET", url);
 Http.send();
 Http.onreadystatechange=(e)=>{
-console.log(Http.responseText)
-}
+	payload = Http.responseText.slice(47, -28).split("-----BEGIN PGP SIGNATURE-----");
 
 
 // find the signer's info
-
+var signature = payload[1];
+}
 // display prompt
-
+if( confirm("Do you trust?") ){
+	document.body.innerHTML = payload[0];
+}
+// document.body.innerHTML = '<h1 class="confirm-title">Do you trust this signer?</h1><pre class="confirm-text">' + signature+ "</pre>";
 // show page
+// }
 </script>
 </body>
 
