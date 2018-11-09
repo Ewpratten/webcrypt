@@ -3,4 +3,26 @@
 </head>
 <body>
 <h1>loading your page</h1>
+
+<script>
+// get the signed file
+const Http = new XMLHttpRequest();
+
+const url = window.location.href
+
+Http.open("GET", url);
+Http.send();
+Http.onreadystatechange=(e)=>{
+console.log(Http.responseText)
+}
+
+
+// find the signer's info
+
+// display prompt
+
+// show page
+</script>
 </body>
+
+
